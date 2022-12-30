@@ -1,23 +1,23 @@
-const express = require('express');
-const multer = require('multer');
-const app = express();
-const upload = multer({
-    storage: multer.diskStorage({
-        destination: function (req, file, cb) {
-            cb(null, "upload")
-        },
-        filename: function (req, file, cb) {
-            cb(null, file.fieldname + "-" + Date.now() + ".jpg")
-        }
-    })
-}).single("user_file");
+const MySql = require("mysql");
+const con = MySql.createConnection({
+    host:'localhost',
+  
+    user:'root',
+    password:'root',
+    database:'Student1'
+});
+con.connect((err)=>{
+    if(err)
+    {
+        console.warn("error")
+    }
+    else
+    {
+        console.warn("connected")
 
+    }
+});
 
-app.post("/upload",upload, (req, resp) => {
-    resp.send("file upload")
-})
-
-
-app.listen(4000);
-
-
+// con.query("select * from customers",(err,result)=>{
+//     console.warn("result",result)
+// })
